@@ -1,53 +1,45 @@
 import openpyxl as op
 
+
 def add_password():
-    # path = r"C:\Users\User\Documents\password-handler\file"
-    path = "/Users/yoosunu/Desktop/password-handler/새 폴더"
-    wb = op.load_workbook(path+"/password.xlsx")
+    # window os
+    path = r"C:\Users\User\Documents\password-handler\file"
+    # mac os
+    # path = "/Users/yoosunu/Desktop/password-handler/새 폴더"
+    wb = op.load_workbook(path + "\password.xlsx")
     # wb = op.load_workbook(path+"/password.csv")
     ws = wb.active
 
-    data = []
+    """Define Infos"""
+    datasets = []
 
     print("사이트의 이름을 입력해주세요: ")
-    SITE = str(input())
+    SITE = input()
     print("아이디를 입력해주세요: ")
-    ID = str(input())
+    ID = input()
     print("비밀번호를 입력해주세요: ")
-    PASSWORD = str(input())
+    PASSWORD = input()
 
+    column_max = ws.max_column
     """data define"""
 
     # SITE = "google"
     # ID = "id"
     # PASSWORD = "password"
 
-    data.append(SITE)
-    data.append(ID)
-    data.append(PASSWORD)
+    datasets.append(SITE)
+    datasets.append(ID)
+    datasets.append(PASSWORD)
 
     """data input"""
 
-    cell_length = []
-    i = 1
-    j = True
-    while j == False:
-        cell_first = ws.cell(row=1, columns=i)
-        cell_length.append(cell_first)
-        i += 1
-        if cell_first == None:
-            j == False
-
-    for columns in range(1, len(cell_length) + 1):
-        cell_site = ws.cell(row=1, column=columns)
-        if cell_site.value == None:
-            for i, value in enumerate(data):
-                ws.cell(row=1+i, column=columns, value=value)
-            break
+    if column_max == 1:
+        for i, dataset in enumerate(datasets, start=1):
+            ws.cell(row=i, column=2, value=dataset)
+    elif column_max >= 2:
+        for i, dataset in enumerate(datasets, start=1):
+            ws.cell(row=i, column=column_max + 1, value=dataset)
 
     """saving"""
-
-    wb.save(path + "/password.xlsx")
-    # wb.save(path + "/password.csv")
+    wb.save(path + "\password.xlsx")
     wb.close()
-

@@ -1,11 +1,18 @@
 import openpyxl as op
 
+
 def workbook_create():
     wb = op.Workbook()
-    wb.active
+    ws = wb.active
 
-    # path = r"C:\Users\User\Documents\password-handler\file"
-    path = "/Users/yoosunu/Desktop/password-handler/새 폴더"
-    wb.save(path + "/password.xlsx")
-    # wb.save(path + "/password.csv")
+    # window os
+    path = r"C:\Users\User\Documents\password-handler\file"
+    # mac os
+    # path = "/Users/yoosunu/Desktop/password-handler/새 폴더"
+
+    BASES = ["SITE", "ID", "PW"]
+    for i, BASE in enumerate(BASES, start=1):
+        ws.cell(row=i, column=1, value=BASE)
+
+    wb.save(path + "\password.xlsx")
     wb.close()
